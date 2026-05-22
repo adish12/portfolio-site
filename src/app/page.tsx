@@ -1,8 +1,14 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+
+function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`rounded-2xl border border-zinc-200 bg-white ${className}`}>
+      {children}
+    </div>
+  );
+}
 
 export default function Portfolio() {
   return (
@@ -15,7 +21,7 @@ export default function Portfolio() {
           transition={{ duration: 0.4 }}
         >
           <p className="text-sm text-zinc-500">UX Designer · Product Thinker · Frontend Background</p>
-          <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+          <h1 className="text-4xl md:text-5xl font-semibold leading-tight mt-2">
             I design products that make complex systems feel simple.
           </h1>
           <p className="mt-4 text-zinc-600 text-lg">
@@ -24,11 +30,15 @@ export default function Portfolio() {
           </p>
 
           <div className="flex gap-3 mt-6">
-            <Button className="rounded-2xl">View Work</Button>
-            <Button variant="outline" className="rounded-2xl">Download CV</Button>
+            <button className="px-5 py-2 rounded-2xl bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-700 transition-colors">
+              View Work
+            </button>
+            <button className="px-5 py-2 rounded-2xl border border-zinc-200 text-zinc-900 text-sm font-medium hover:bg-zinc-50 transition-colors">
+              Download CV
+            </button>
           </div>
 
-          <div className="flex gap-4 mt-6 text-zinc-500">
+          <div className="flex gap-4 mt-6 text-zinc-500 text-sm">
             <a href="mailto:adi.shohat21@gmail.com" className="hover:text-zinc-900">Email</a>
             <a href="https://linkedin.com" className="hover:text-zinc-900">LinkedIn</a>
             <a href="https://github.com" className="hover:text-zinc-900">GitHub</a>
@@ -55,39 +65,39 @@ export default function Portfolio() {
         <h2 className="text-xl font-medium">What I bring</h2>
         <div className="grid md:grid-cols-2 gap-4">
           <Card>
-            <CardContent className="p-5">
+            <div className="p-5">
               <h3 className="font-medium">End-to-end product thinking</h3>
               <p className="text-sm text-zinc-600 mt-2">
                 From research and flows to UI decisions and implementation details.
               </p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card>
-            <CardContent className="p-5">
+            <div className="p-5">
               <h3 className="font-medium">Strong technical intuition</h3>
               <p className="text-sm text-zinc-600 mt-2">
                 Background in frontend development helps me design realistic, buildable interfaces.
               </p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card>
-            <CardContent className="p-5">
+            <div className="p-5">
               <h3 className="font-medium">Clarity in complex systems</h3>
               <p className="text-sm text-zinc-600 mt-2">
                 I focus on reducing cognitive load and making decision paths obvious.
               </p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card>
-            <CardContent className="p-5">
+            <div className="p-5">
               <h3 className="font-medium">Ownership mindset</h3>
               <p className="text-sm text-zinc-600 mt-2">
                 I've been responsible for entire UX surfaces, not just isolated screens.
               </p>
-            </CardContent>
+            </div>
           </Card>
         </div>
       </section>
@@ -98,7 +108,7 @@ export default function Portfolio() {
 
         <div className="grid gap-4">
           <Card>
-            <CardContent className="p-5">
+            <div className="p-5">
               <div className="flex justify-between">
                 <h3 className="font-medium">UX / Product Designer</h3>
                 <span className="text-sm text-zinc-500">Recent</span>
@@ -107,17 +117,17 @@ export default function Portfolio() {
                 Led UX in product environments, working closely with engineering teams, defining flows,
                 building UI systems in Figma, and translating product logic into usable interfaces.
               </p>
-            </CardContent>
+            </div>
           </Card>
 
           <Card>
-            <CardContent className="p-5">
+            <div className="p-5">
               <h3 className="font-medium">Frontend / Development Background</h3>
               <p className="text-sm text-zinc-600 mt-2">
                 Built interfaces and features hands-on, which shaped a strong understanding of technical constraints
                 and improved design feasibility decisions.
               </p>
-            </CardContent>
+            </div>
           </Card>
         </div>
       </section>
@@ -128,7 +138,9 @@ export default function Portfolio() {
         <p className="text-zinc-600 mt-2">
           Open to UX / Product roles where I can work on complex systems and meaningful product problems.
         </p>
-        <Button className="mt-6 rounded-2xl">Get in touch</Button>
+        <button className="mt-6 px-5 py-2 rounded-2xl bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-700 transition-colors">
+          Get in touch
+        </button>
       </section>
     </div>
   );
