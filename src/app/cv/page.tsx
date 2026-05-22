@@ -16,7 +16,7 @@ export default function CV() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-zinc-100">
         <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
           <a href="/" className="font-semibold">Adi Shohat</a>
-          <nav className="flex gap-6 text-sm text-zinc-600">
+          <nav className="flex gap-6 text-sm text-zinc-600 font-manrope">
             <a href="/#work" className="hover:text-zinc-900 transition-colors">Work</a>
             <a href="/#about" className="hover:text-zinc-900 transition-colors">About</a>
             <a href="/cv" className="text-zinc-900 font-medium">CV</a>

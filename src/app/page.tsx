@@ -27,7 +27,7 @@ export default function Portfolio() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-zinc-100">
         <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
           <p className="font-semibold">Adi Shohat</p>
-          <nav className="flex gap-6 text-sm text-zinc-600">
+          <nav className="flex gap-6 text-sm text-zinc-600 font-manrope">
             <a href="#work" className="hover:text-zinc-900 transition-colors">Work</a>
             <a href="#about" className="hover:text-zinc-900 transition-colors">About</a>
             <a href="/cv" className="hover:text-zinc-900 transition-colors">CV</a>
@@ -71,18 +71,26 @@ export default function Portfolio() {
       <section id="work" className="max-w-5xl mx-auto px-6 py-16">
         <h2 className="text-2xl font-semibold mb-8">Selected Work</h2>
         <div className="grid md:grid-cols-3 gap-5">
-          {[1, 2, 3].map((i) => (
+          {[
+            { href: null, title: "Project Title", desc: "Short description of the problem, your role, and the impact." },
+            { href: null, title: "Project Title", desc: "Short description of the problem, your role, and the impact." },
+            { href: "/work/design-system", title: "Building a Design System for an ERP", desc: "Created a scalable UI kit and component system that reduced repetitive work and improved dev handoff." },
+          ].map((item, i) => (
             <Card key={i} className="hover:shadow-md transition-shadow cursor-pointer">
               <div className="aspect-video bg-zinc-50 rounded-t-2xl" />
               <div className="p-5">
                 <p className="text-xs text-zinc-400 uppercase tracking-widest">Case Study</p>
-                <h3 className="text-base font-semibold mt-1">Project Title</h3>
-                <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">
-                  Short description of the problem, your role, and the impact.
-                </p>
-                <button className="mt-4 text-sm font-medium flex items-center gap-1 text-zinc-500 hover:gap-2 transition-all">
-                  View details <ArrowRight className="w-4 h-4" />
-                </button>
+                <h3 className="text-base font-semibold mt-1">{item.title}</h3>
+                <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">{item.desc}</p>
+                {item.href ? (
+                  <a href={item.href} className="mt-4 text-sm font-medium flex items-center gap-1 text-zinc-500 hover:gap-2 transition-all">
+                    View details <ArrowRight className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <button className="mt-4 text-sm font-medium flex items-center gap-1 text-zinc-500 hover:gap-2 transition-all">
+                    View details <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             </Card>
           ))}
