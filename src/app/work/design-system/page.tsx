@@ -1,4 +1,5 @@
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 
 export default function DesignSystemCaseStudy() {
   return (
@@ -101,65 +102,43 @@ export default function DesignSystemCaseStudy() {
             Key Components Designed
           </h2>
 
-          {/* Typography subsection */}
-          <div className="mt-8">
-            <div className="flex items-baseline gap-2 mb-4">
-              <h3 className="text-lg font-bold">Typography: Open Sans</h3>
-              <span className="text-sm text-zinc-400">/ Atoms</span>
+          {[
+            { name: "Typography", category: "Atoms", web: "/ui-kit/Text.png", mobile: "/ui-kit/TextM.png" },
+            { name: "Colors", category: "Atoms", web: "/ui-kit/Colors.png", mobile: "/ui-kit/ColorsM.png" },
+            { name: "Spacing", category: "Atoms", web: "/ui-kit/Spacing.png", mobile: "/ui-kit/SpacingM.png" },
+            { name: "Grid System", category: "Atoms", web: "/ui-kit/GridSystem.png", mobile: "/ui-kit/GridSystemM.png" },
+            { name: "Buttons", category: "Molecules", web: "/ui-kit/Buttons.png", mobile: "/ui-kit/ButtonsM.png" },
+            { name: "Tabs", category: "Molecules", web: "/ui-kit/Tabs.png", mobile: "/ui-kit/TabsM.png" },
+            { name: "Breadcrumbs", category: "Molecules", web: "/ui-kit/Breadcrumbs.png", mobile: "/ui-kit/BreadcrumbsM.png" },
+            { name: "Selectors", category: "Molecules", web: "/ui-kit/Selectors.png", mobile: "/ui-kit/SelectorsM.png" },
+            { name: "Text Field", category: "Molecules", web: "/ui-kit/Text Field.png", mobile: "/ui-kit/Text FieldM.png" },
+            { name: "Data Table", category: "Organisms", web: "/ui-kit/Data tables.png", mobile: "/ui-kit/Data tablesM.png" },
+          ].map((component) => (
+            <div key={component.name} className="mt-10">
+              <div className="flex items-baseline gap-2 mb-4">
+                <h3 className="text-lg font-bold">{component.name}</h3>
+                <span className="text-sm text-zinc-400">/ {component.category}</span>
+              </div>
+              <div className="rounded-xl overflow-hidden border border-zinc-100 bg-zinc-50">
+                <Image
+                  src={component.web}
+                  alt={`${component.name}`}
+                  width={800}
+                  height={500}
+                  className="w-full h-auto hidden md:block"
+                  unoptimized
+                />
+                <Image
+                  src={component.mobile}
+                  alt={`${component.name}`}
+                  width={400}
+                  height={600}
+                  className="w-full h-auto block md:hidden"
+                  unoptimized
+                />
+              </div>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm border-collapse">
-                <thead>
-                  <tr className="border-b border-zinc-200">
-                    <th className="text-left py-2 pr-6 font-medium text-zinc-700">Style name</th>
-                    <th className="text-left py-2 pr-6 font-medium text-zinc-700">Usage</th>
-                    <th className="text-left py-2 pr-6 font-medium text-zinc-700">Font size</th>
-                    <th className="text-left py-2 pr-6 font-medium text-zinc-700">Line height</th>
-                    <th className="text-left py-2 font-medium text-zinc-700">Sample</th>
-                  </tr>
-                </thead>
-                <tbody className="text-zinc-600">
-                  {[
-                    { name: "Regular / 13 | 16", usage: "Text", size: "13", lh: "16", weight: "font-normal" },
-                    { name: "Semibold / 13 | 16", usage: "Text", size: "13", lh: "16", weight: "font-semibold" },
-                    { name: "Semibold / 14 | 16", usage: "Label", size: "14", lh: "16", weight: "font-semibold" },
-                    { name: "Semibold / 16 | 20", usage: "H2", size: "16", lh: "20", weight: "font-semibold" },
-                    { name: "Semibold / 20 | 32", usage: "H1", size: "20", lh: "32", weight: "font-semibold" },
-                  ].map((row) => (
-                    <tr key={row.name} className="border-b border-zinc-100">
-                      <td className="py-3 pr-6">{row.name}</td>
-                      <td className="py-3 pr-6">{row.usage}</td>
-                      <td className="py-3 pr-6">{row.size}</td>
-                      <td className="py-3 pr-6">{row.lh}</td>
-                      <td className={`py-3 ${row.weight}`}>Lorem ipsum dolor sit amet consectetur.</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Colors placeholder */}
-          <div className="mt-10">
-            <div className="flex items-baseline gap-2 mb-4">
-              <h3 className="text-lg font-bold">Colors</h3>
-              <span className="text-sm text-zinc-400">/ Atoms</span>
-            </div>
-            <div className="aspect-video bg-zinc-50 rounded-xl border border-zinc-100 flex items-center justify-center text-zinc-300 text-sm">
-              Image coming soon
-            </div>
-          </div>
-
-          {/* Components placeholder */}
-          <div className="mt-10">
-            <div className="flex items-baseline gap-2 mb-4">
-              <h3 className="text-lg font-bold">Components</h3>
-              <span className="text-sm text-zinc-400">/ Molecules &amp; Organisms</span>
-            </div>
-            <div className="aspect-video bg-zinc-50 rounded-xl border border-zinc-100 flex items-center justify-center text-zinc-300 text-sm">
-              Image coming soon
-            </div>
-          </div>
+          ))}
         </section>
 
         {/* OUTCOMES */}
