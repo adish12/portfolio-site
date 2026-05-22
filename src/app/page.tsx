@@ -1,65 +1,135 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
+export default function Portfolio() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-white text-zinc-900 px-6 md:px-16 py-10">
+      {/* HERO */}
+      <section className="max-w-4xl mx-auto grid gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <p className="text-sm text-zinc-500">UX Designer · Product Thinker · Frontend Background</p>
+          <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+            I design products that make complex systems feel simple.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 text-zinc-600 text-lg">
+            I come from development and UX, with experience leading design end-to-end in product teams —
+            from early research and flows, to UI systems and hands-on implementation thinking.
           </p>
+
+          <div className="flex gap-3 mt-6">
+            <Button className="rounded-2xl">View Work</Button>
+            <Button variant="outline" className="rounded-2xl">Download CV</Button>
+          </div>
+
+          <div className="flex gap-4 mt-6 text-zinc-500">
+            <a href="mailto:adi.shohat21@gmail.com" className="hover:text-zinc-900">Email</a>
+            <a href="https://linkedin.com" className="hover:text-zinc-900">LinkedIn</a>
+            <a href="https://github.com" className="hover:text-zinc-900">GitHub</a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ABOUT */}
+      <section className="max-w-4xl mx-auto mt-20 grid gap-4">
+        <h2 className="text-xl font-medium">About</h2>
+        <p className="text-zinc-600 leading-relaxed">
+          I started in frontend development and moved into UX and product design, where I found my space:
+          connecting systems thinking with human behavior. I've worked as the sole designer in a company,
+          collaborated closely with engineers, and built design systems and flows from scratch.
+        </p>
+        <p className="text-zinc-600 leading-relaxed">
+          I like messy problems — especially ones where the product, data, and users don't naturally align.
+          My strength is turning ambiguity into structure: flows, UI patterns, and decisions teams can actually build.
+        </p>
+      </section>
+
+      {/* HIGHLIGHTS */}
+      <section className="max-w-4xl mx-auto mt-20 grid gap-4">
+        <h2 className="text-xl font-medium">What I bring</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <Card>
+            <CardContent className="p-5">
+              <h3 className="font-medium">End-to-end product thinking</h3>
+              <p className="text-sm text-zinc-600 mt-2">
+                From research and flows to UI decisions and implementation details.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-5">
+              <h3 className="font-medium">Strong technical intuition</h3>
+              <p className="text-sm text-zinc-600 mt-2">
+                Background in frontend development helps me design realistic, buildable interfaces.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-5">
+              <h3 className="font-medium">Clarity in complex systems</h3>
+              <p className="text-sm text-zinc-600 mt-2">
+                I focus on reducing cognitive load and making decision paths obvious.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-5">
+              <h3 className="font-medium">Ownership mindset</h3>
+              <p className="text-sm text-zinc-600 mt-2">
+                I've been responsible for entire UX surfaces, not just isolated screens.
+              </p>
+            </CardContent>
+          </Card>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* EXPERIENCE */}
+      <section className="max-w-4xl mx-auto mt-20 grid gap-6">
+        <h2 className="text-xl font-medium">Experience</h2>
+
+        <div className="grid gap-4">
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex justify-between">
+                <h3 className="font-medium">UX / Product Designer</h3>
+                <span className="text-sm text-zinc-500">Recent</span>
+              </div>
+              <p className="text-sm text-zinc-600 mt-2">
+                Led UX in product environments, working closely with engineering teams, defining flows,
+                building UI systems in Figma, and translating product logic into usable interfaces.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-5">
+              <h3 className="font-medium">Frontend / Development Background</h3>
+              <p className="text-sm text-zinc-600 mt-2">
+                Built interfaces and features hands-on, which shaped a strong understanding of technical constraints
+                and improved design feasibility decisions.
+              </p>
+            </CardContent>
+          </Card>
         </div>
-      </main>
+      </section>
+
+      {/* CONTACT */}
+      <section className="max-w-4xl mx-auto mt-24 mb-10 text-center">
+        <h2 className="text-xl font-medium">Let's talk</h2>
+        <p className="text-zinc-600 mt-2">
+          Open to UX / Product roles where I can work on complex systems and meaningful product problems.
+        </p>
+        <Button className="mt-6 rounded-2xl">Get in touch</Button>
+      </section>
     </div>
   );
 }
