@@ -106,7 +106,8 @@ export default function Portfolio() {
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl font-semibold">Let's build something useful</h2>
           <p className="text-zinc-500 mt-3">Open to UX / Product Design roles</p>
-          <div className="flex justify-center gap-3 mt-8">
+          <p className="text-zinc-400 text-sm mt-6">adi.shohat21@gmail.com</p>
+          <div className="flex justify-center gap-3 mt-4">
             <a
               href="mailto:adi.shohat21@gmail.com"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-700 transition-colors"
