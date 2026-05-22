@@ -20,13 +20,13 @@ export default function Portfolio() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <p className="text-sm text-zinc-500 tracking-wide">UX Designer · Product Thinker · Frontend Background</p>
+          <p className="text-sm text-zinc-500 tracking-wide">UX Designer · CS Background · Product & Systems Thinking</p>
           <h1 className="text-4xl md:text-5xl font-semibold leading-[1.15] mt-3">
             I design products that make complex systems feel simple.
           </h1>
           <p className="mt-5 text-zinc-600 text-lg leading-relaxed">
-            I come from development and UX, with experience leading design end-to-end in product teams —
-            from early research and flows, to UI systems and hands-on implementation thinking.
+            I started as a software developer and moved into UX — which means I design with the full picture in mind.
+            I know what's hard to build, where the edge cases hide, and how to write specs engineers actually want to work with.
           </p>
 
           <div className="flex gap-3 mt-7">
@@ -40,7 +40,7 @@ export default function Portfolio() {
 
           <div className="flex gap-5 mt-6 text-zinc-500 text-sm">
             <a href="mailto:adi.shohat21@gmail.com" className="hover:text-zinc-900 transition-colors">Email</a>
-            <a href="https://linkedin.com" className="hover:text-zinc-900 transition-colors">LinkedIn</a>
+            <a href="https://linkedin.com/in/adishohat" className="hover:text-zinc-900 transition-colors">LinkedIn</a>
             <a href="https://github.com" className="hover:text-zinc-900 transition-colors">GitHub</a>
           </div>
         </motion.div>
@@ -50,13 +50,16 @@ export default function Portfolio() {
       <section className="max-w-4xl mx-auto mt-14 grid gap-3">
         <h2 className="text-2xl font-semibold">About</h2>
         <p className="text-zinc-600 leading-relaxed">
-          I started in frontend development and moved into UX and product design, where I found my space:
-          connecting systems thinking with human behavior. I've worked as the sole designer in a company,
-          collaborated closely with engineers, and built design systems and flows from scratch.
+          Most designers come from graphic design or psychology. I come from writing production code.
+          That background isn't just a fun fact — it means I read technical constraints before I sketch
+          the first screen, catch implementation problems before they reach engineering, and collaborate
+          with developers as someone who's actually been on their side of the table.
         </p>
         <p className="text-zinc-600 leading-relaxed">
-          I like messy problems — especially ones where the product, data, and users don't naturally align.
-          My strength is turning ambiguity into structure: flows, UI patterns, and decisions teams can actually build.
+          I've owned design end-to-end in product teams — working closely with engineers, product managers,
+          and stakeholders to take things from ambiguous problem to shipped feature. I know how to move
+          fast without losing the thread, and I care about what actually gets built, not just what looks
+          good in Figma.
         </p>
       </section>
 
@@ -66,18 +69,18 @@ export default function Portfolio() {
         <div className="grid md:grid-cols-2 gap-3">
           <Card>
             <div className="p-4">
-              <h3 className="font-medium text-zinc-900">End-to-end product thinking</h3>
+              <h3 className="font-medium text-zinc-900">Dev background, design mindset</h3>
               <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">
-                From research and flows to UI decisions and implementation details.
+                CS degree and 3 years of software development mean I design things that are actually buildable — and I speak the same language as the engineers I work with.
               </p>
             </div>
           </Card>
 
           <Card>
             <div className="p-4">
-              <h3 className="font-medium text-zinc-900">Strong technical intuition</h3>
+              <h3 className="font-medium text-zinc-900">End-to-end ownership</h3>
               <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">
-                Background in frontend development helps me design realistic, buildable interfaces.
+                At Mdsc I was the sole UX designer — responsible for research, flows, UI systems, and specs across the entire product.
               </p>
             </div>
           </Card>
@@ -86,16 +89,16 @@ export default function Portfolio() {
             <div className="p-4">
               <h3 className="font-medium text-zinc-900">Clarity in complex systems</h3>
               <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">
-                I focus on reducing cognitive load and making decision paths obvious.
+                I focus on reducing cognitive load and making decision paths obvious — especially in data-heavy or workflow-driven products.
               </p>
             </div>
           </Card>
 
           <Card>
             <div className="p-4">
-              <h3 className="font-medium text-zinc-900">Ownership mindset</h3>
+              <h3 className="font-medium text-zinc-900">Low friction with engineering</h3>
               <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">
-                I've been responsible for entire UX surfaces, not just isolated screens.
+                I write specs that account for technical constraints upfront. Less back-and-forth, fewer surprises in implementation.
               </p>
             </div>
           </Card>
@@ -110,23 +113,81 @@ export default function Portfolio() {
           <Card>
             <div className="p-4">
               <div className="flex justify-between items-start">
-                <h3 className="font-medium text-zinc-900">UX / Product Designer</h3>
-                <span className="text-xs text-zinc-400 mt-0.5">Recent</span>
+                <div>
+                  <h3 className="font-medium text-zinc-900">User Experience Designer</h3>
+                  <p className="text-sm text-zinc-500 mt-0.5">Mdsc</p>
+                </div>
+                <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2020 – 2025</span>
               </div>
-              <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">
-                Led UX in product environments, working closely with engineering teams, defining flows,
-                building UI systems in Figma, and translating product logic into usable interfaces.
+              <p className="text-sm text-zinc-500 mt-2 leading-relaxed">
+                Sole UX designer across the product. Responsible for end-to-end design — from defining
+                user flows and running research, to building UI systems in Figma and working directly with engineering
+                to ship features. Embedded in the product team with full ownership over the design surface.
               </p>
             </div>
           </Card>
 
           <Card>
             <div className="p-4">
-              <h3 className="font-medium text-zinc-900">Frontend / Development Background</h3>
-              <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">
-                Built interfaces and features hands-on, which shaped a strong understanding of technical constraints
-                and improved design feasibility decisions.
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-medium text-zinc-900">Software Developer</h3>
+                  <p className="text-sm text-zinc-500 mt-0.5">Ex Libris · Full-time</p>
+                </div>
+                <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2016 – 2018</span>
+              </div>
+              <p className="text-sm text-zinc-500 mt-2 leading-relaxed">
+                Developed and maintained production tools end-to-end across development, testing, and deployment.
+                Responsible for production server health and versioning. Worked in Agile with Perl, Java, MySQL, Apache, Linux, Jenkins, and Jira.
               </p>
+            </div>
+          </Card>
+
+          <Card>
+            <div className="p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-medium text-zinc-900">Software & Web Developer</h3>
+                  <p className="text-sm text-zinc-500 mt-0.5">Hebrew University — Minerva Center for Movement Ecology</p>
+                </div>
+                <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2015 – 2016</span>
+              </div>
+              <p className="text-sm text-zinc-500 mt-2 leading-relaxed">
+                Built and maintained a web platform for querying and visualizing wildlife tracking research data
+                (HTML5, CSS3, JavaScript, Django, MySQL, Google Maps API). Developed a real-time Java service
+                feeding data into the research DB, migrated lab servers to AWS EC2, and maintained the research database.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* EDUCATION */}
+      <section className="max-w-4xl mx-auto mt-14 grid gap-4">
+        <h2 className="text-2xl font-semibold">Education</h2>
+
+        <div className="grid gap-3">
+          <Card>
+            <div className="p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-medium text-zinc-900">B.Sc. Computer Science</h3>
+                  <p className="text-sm text-zinc-500 mt-0.5">The Hebrew University of Jerusalem</p>
+                </div>
+                <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2012 – 2016</span>
+              </div>
+            </div>
+          </Card>
+
+          <Card>
+            <div className="p-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-medium text-zinc-900">UX Design</h3>
+                  <p className="text-sm text-zinc-500 mt-0.5">Netcraft Academy</p>
+                </div>
+                <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2019 – 2020</span>
+              </div>
             </div>
           </Card>
         </div>
@@ -136,7 +197,7 @@ export default function Portfolio() {
       <section className="max-w-4xl mx-auto mt-20 mb-16 text-center">
         <h2 className="text-2xl font-semibold">Let's talk</h2>
         <p className="text-zinc-500 mt-2 leading-relaxed">
-          Open to UX / Product roles where I can work on complex systems and meaningful product problems.
+          Open to UX / Product Design roles where I can work on complex systems and meaningful product problems.
         </p>
         <button className="mt-6 px-6 py-2.5 rounded-2xl bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-700 transition-colors">
           Get in touch
