@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Award, GraduationCap, Mail } from "lucide-react";
 
 function LinkedinIcon() {
   return (
@@ -30,7 +30,6 @@ export default function Portfolio() {
           <nav className="flex gap-6 text-sm text-zinc-600 font-manrope">
             <a href="#work" className="hover:text-zinc-900 transition-colors">Work</a>
             <a href="#about" className="hover:text-zinc-900 transition-colors">About</a>
-            <a href="/cv" className="hover:text-zinc-900 transition-colors">CV</a>
             <a href="#contact" className="hover:text-zinc-900 transition-colors">Contact</a>
           </nav>
         </div>
@@ -43,14 +42,11 @@ export default function Portfolio() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <p className="text-sm tracking-widest text-zinc-500 uppercase">
-            UX Designer • Product Thinker • Software Background
-          </p>
-          <h1 className="text-4xl md:text-6xl font-semibold mt-4 leading-[1.15]">
-            I design products that make complex systems feel simple.
+          <h1 className="text-4xl md:text-6xl font-semibold leading-[1.15]">
+            I design products that make complexity feel simple.
           </h1>
           <p className="mt-4 text-sm text-zinc-500">
-            B.Sc. Computer Science, The Hebrew University · 4+ years UX/Product Design
+            4y+ Product Design <span className="font-bold mx-1">•</span> Software Background
           </p>
           <p className="mt-5 text-lg text-zinc-600 max-w-2xl leading-relaxed">
             I turn messy, high-friction workflows into clear, usable interfaces that feel simple to the user.
@@ -97,6 +93,50 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* BUILT */}
+      <section id="built" className="max-w-5xl mx-auto px-6 py-16 border-t border-zinc-100">
+        <div className="flex items-baseline gap-3 mb-2">
+          <h2 className="text-2xl font-semibold">Built</h2>
+        </div>
+        <p className="text-sm text-zinc-500 mb-8 max-w-2xl leading-relaxed">
+          Apps and sites I designed and brought to life with AI.
+        </p>
+        <div className="grid sm:grid-cols-2 gap-x-10 gap-y-2">
+          {[
+            { href: null, title: "Spelling Bee", desc: "A word game that challenges you to find as many words as possible from seven letters." },
+            { href: null, title: "G-Vision Landing Page", desc: "A clean marketing page built for a client to introduce their service and generate leads." },
+          ].map((item, i) => {
+            const inner = (
+              <>
+                <div className="w-12 h-12 shrink-0 rounded-lg bg-zinc-100 border border-zinc-200" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="text-sm font-medium text-zinc-900 truncate">{item.title}</h3>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900 transition-colors" />
+                  </div>
+                  <p className="text-sm text-zinc-500 mt-0.5 leading-relaxed">{item.desc}</p>
+                </div>
+              </>
+            );
+            return item.href ? (
+              <a
+                key={i}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex gap-4 py-4 border-b border-zinc-100"
+              >
+                {inner}
+              </a>
+            ) : (
+              <div key={i} className="group flex gap-4 py-4 border-b border-zinc-100 opacity-60">
+                {inner}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       {/* ABOUT */}
       <section id="about" className="bg-zinc-50 py-16">
         <div className="max-w-5xl mx-auto px-6 grid gap-3">
@@ -106,6 +146,45 @@ export default function Portfolio() {
             My background in software development means I work closely with engineering, think about
             constraints early, and ship things that actually hold up.
           </p>
+          <div className="mt-2">
+            <p className="text-xs text-zinc-400 uppercase tracking-widest mb-3">Education</p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { title: "B.Sc. Computer Science", issuer: "The Hebrew University" },
+              ].map((c, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white pl-3 pr-4 py-2"
+                >
+                  <GraduationCap className="w-4 h-4 text-zinc-400 shrink-0" />
+                  <span className="text-sm">
+                    <span className="font-medium text-zinc-900">{c.title}</span>
+                    <span className="text-zinc-400"> - {c.issuer}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-2">
+            <p className="text-xs text-zinc-400 uppercase tracking-widest mb-3">Certifications</p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { title: "UX Design", issuer: "Netcraft Academy" },
+                { title: "Information Science", issuer: "Technion" },
+              ].map((c, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2.5 rounded-full border border-zinc-200 bg-white pl-3 pr-4 py-2"
+                >
+                  <Award className="w-4 h-4 text-zinc-400 shrink-0" />
+                  <span className="text-sm">
+                    <span className="font-medium text-zinc-900">{c.title}</span>
+                    <span className="text-zinc-400"> - {c.issuer}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

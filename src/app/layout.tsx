@@ -15,7 +15,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Adi Shohat — UX Designer",
+  title: "Adi Shohat - UX Designer",
   description: "UX Designer with a software background. I design products that make complex systems feel simple.",
 };
 

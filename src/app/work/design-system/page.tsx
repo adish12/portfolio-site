@@ -40,7 +40,7 @@ export default function DesignSystemCaseStudy() {
         <div className="grid grid-cols-3 gap-3 mt-8">
           {[
             { label: "Role", value: "Product Designer" },
-            { label: "Type", value: "Design System – ERP Platform" },
+            { label: "Type", value: "Design System - ERP Platform" },
             { label: "Team", value: "1 Designer, 1 PM, 2 Devs" },
           ].map(({ label, value }) => (
             <div key={label} className="rounded-xl border border-zinc-200 p-4 font-manrope">
@@ -89,7 +89,7 @@ export default function DesignSystemCaseStudy() {
               I studied and applied <strong className="text-zinc-900">Atomic Design</strong> principles to organize components into a scalable system
             </li>
             <li>
-              <strong className="text-zinc-900">Design–Dev Collaboration:</strong> I maintained naming alignment between Figma and code, structured
+              <strong className="text-zinc-900">Design-Dev Collaboration:</strong> I maintained naming alignment between Figma and code, structured
               the Figma files clearly, and worked closely with the devs to ensure smooth handoff and implementation.
             </li>
           </ul>
@@ -160,7 +160,7 @@ export default function DesignSystemCaseStudy() {
             What I learned by building a system from scratch
           </h2>
           <p className="mt-4 text-zinc-600 leading-relaxed">
-            Designing this system taught me the value of clarity and reusability — not just in components, but in
+            Designing this system taught me the value of clarity and reusability - not just in components, but in
             communication across the team.
           </p>
         </section>

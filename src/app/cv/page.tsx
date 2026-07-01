@@ -47,10 +47,10 @@ export default function CV() {
                     <h3 className="font-medium text-zinc-900">User Experience Designer</h3>
                     <p className="text-sm text-zinc-500 mt-0.5">Mdsc</p>
                   </div>
-                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2020 – 2025</span>
+                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2020 - 2025</span>
                 </div>
                 <p className="text-sm text-zinc-500 mt-2 leading-relaxed">
-                  Sole UX designer across the product. Responsible for end-to-end design — from defining
+                  Sole UX designer across the product. Responsible for end-to-end design - from defining
                   user flows and running research, to building UI systems in Figma and working directly with engineering
                   to ship features. Embedded in the product team with full ownership over the design surface.
                 </p>
@@ -64,7 +64,7 @@ export default function CV() {
                     <h3 className="font-medium text-zinc-900">Software Developer</h3>
                     <p className="text-sm text-zinc-500 mt-0.5">Ex Libris · Full-time</p>
                   </div>
-                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2016 – 2018</span>
+                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2016 - 2018</span>
                 </div>
                 <p className="text-sm text-zinc-500 mt-2 leading-relaxed">
                   Developed and maintained production tools end-to-end across development, testing, and deployment.
@@ -78,9 +78,9 @@ export default function CV() {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-medium text-zinc-900">Software & Web Developer</h3>
-                    <p className="text-sm text-zinc-500 mt-0.5">Hebrew University — Minerva Center for Movement Ecology</p>
+                    <p className="text-sm text-zinc-500 mt-0.5">Hebrew University - Minerva Center for Movement Ecology</p>
                   </div>
-                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2015 – 2016</span>
+                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2015 - 2016</span>
                 </div>
                 <p className="text-sm text-zinc-500 mt-2 leading-relaxed">
                   Built and maintained a web platform for querying and visualizing wildlife tracking research data
@@ -103,7 +103,7 @@ export default function CV() {
                     <h3 className="font-medium text-zinc-900">B.Sc. Computer Science</h3>
                     <p className="text-sm text-zinc-500 mt-0.5">The Hebrew University of Jerusalem</p>
                   </div>
-                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2012 – 2016</span>
+                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2012 - 2016</span>
                 </div>
               </div>
             </Card>
@@ -115,7 +115,7 @@ export default function CV() {
                     <h3 className="font-medium text-zinc-900">UX Design</h3>
                     <p className="text-sm text-zinc-500 mt-0.5">Netcraft Academy</p>
                   </div>
-                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2019 – 2020</span>
+                  <span className="text-xs text-zinc-400 mt-0.5 shrink-0 ml-4">2019 - 2020</span>
                 </div>
               </div>
             </Card>
