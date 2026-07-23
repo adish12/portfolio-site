@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Builder for an ERP System - Case Study (static working copy)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-variant-ligatures: none; -webkit-font-feature-settings: "liga" 0; font-feature-settings: "liga" 0; }
+  .font-manrope { font-family: 'Manrope', system-ui, sans-serif; }
+  /* text column - comfortable reading measure */
+  .prose-col { max-width: 48rem; }
+  /* section kicker - accent-colored wayfinding label */
+  .section-kicker { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .15em; color: #2563eb; margin-bottom: .5rem; }
+
+
+  /* form examples carousel */
+  .carousel { position: relative; height: 390px; overflow: hidden; }
+  .carousel-track { position: absolute; inset: 0; }
+  .carousel-card {
+    position: absolute; top: 12px; left: 50%;
+    transition: transform .35s cubic-bezier(.22,.61,.36,1), opacity .35s ease;
+  }
+  .carousel-card .frame {
+    position: relative; display: inline-block;
+    border-radius: 12px; overflow: hidden; border: 1px solid #e4e4e7; background: white;
+    box-shadow: 0 16px 32px -18px rgba(15,23,42,.35);
+  }
+  .carousel-card img { display: block; max-width: 560px; max-height: 340px; width: auto; height: auto; }
+  .carousel-card .cap { text-align: center; font-size: 12px; color: #a1a1aa; margin-top: 10px; }
+  .carousel-nav-overlay { position: absolute; inset: 0; cursor: pointer; }
+
+  .carousel-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 34px; height: 34px; border-radius: 999px; background: white;
+    border: 1px solid #e4e4e7; display: flex; align-items: center; justify-content: center;
+    color: #52525b; box-shadow: 0 4px 10px -4px rgba(15,23,42,.2); z-index: 20;
+  }
+  .carousel-nav:hover { background: #fafafa; }
+  .carousel-nav.prev { left: 4px; }
+  .carousel-nav.next { right: 4px; }
+
+  .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 14px; }
+  .carousel-dot { width: 6px; height: 6px; border-radius: 999px; background: #d4d4d8; transition: background .2s ease, width .2s ease; }
+  .carousel-dot.active { background: #52525b; width: 18px; }
+
+  @media (max-width: 640px) {
+    .carousel { height: 260px; }
+    .carousel-card img { max-width: 230px; max-height: 210px; }
+    .carousel-nav { width: 28px; height: 28px; }
+  }
+
+  /* hero screenshot frame */
+  .shot-frame {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .shot-frame img { display: block; width: 100%; height: auto; }
+</style>
+</head>
+<body class="min-h-screen bg-white text-zinc-900">
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="hidden fixed inset-0 z-[100] items-center justify-center bg-zinc-950/80 backdrop-blur-sm p-6">
+    <button type="button" id="lightbox-close" class="absolute top-5 right-5 text-white/80 hover:text-white transition-colors" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] w-auto h-auto rounded-xl shadow-2xl" />
+  </div>
+
+  <main class="min-h-screen bg-white text-zinc-900">
+
+    <!-- NAV -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-zinc-100">
+      <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="/" class="font-semibold">Adi Shohat</a>
+        <nav class="flex gap-6 text-sm text-zinc-600 font-manrope">
+          <a href="/#work" class="hover:text-zinc-900 transition-colors">Work</a>
+          <a href="/#about" class="hover:text-zinc-900 transition-colors">About</a>
+          <a href="/cv" class="hover:text-zinc-900 transition-colors">CV</a>
+          <a href="/#contact" class="hover:text-zinc-900 transition-colors">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden" style="background: linear-gradient(160deg, #0b1a3d 0%, #0a1330 100%);">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 grid md:grid-cols-[0.8fr_1.4fr] gap-8 items-stretch">
+        <div class="flex flex-col justify-between">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold leading-[1.1] text-white">
+              Simplifying Form<br>Creation for an<br>ERP System
+            </h1>
+            <p class="mt-5 text-lg leading-relaxed text-slate-300">
+              From a hard-to-use table to a visual drag-and-drop builder anyone on the team can use
+            </p>
+          </div>
+
+          <div class="mt-10 md:mt-0 flex flex-wrap gap-3 font-manrope">
+            <div class="rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+              <p class="text-[11px] uppercase tracking-wide text-blue-300/70">Platform</p>
+              <p class="text-sm font-medium text-white mt-1">Desktop &middot; B2B ERP</p>
+            </div>
+            <div class="rounded-lg border border-white/10 bg-white/5 px-4 py-3">
+              <p class="text-[11px] uppercase tracking-wide text-blue-300/70">Role</p>
+              <p class="text-sm font-medium text-white mt-1">UX Designer &amp; Product Manager</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="pointer-events-none absolute -inset-16 rounded-[48px] blur-xl" style="background: radial-gradient(ellipse, rgba(96,165,250,1) 0%, rgba(59,130,246,0.85) 45%, transparent 78%);"></div>
+          <div class="shot-frame relative">
+            <img src="form-builder/result-075.png" alt="The visual form builder in the new ERP system">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="border-t border-zinc-200 bg-zinc-50 py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <p class="section-kicker">Overview</p>
+          <h2 class="text-2xl md:text-[28px] font-semibold leading-snug text-zinc-900">
+            A builder for structured business records.
+          </h2>
+          <p class="mt-3 text-base text-zinc-700 leading-relaxed">
+            My mission was to transform the dynamic form builder, used to create records like employee and invoice forms, into a clear and intuitive interface.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-4 items-stretch">
+          <div class="rounded-xl border border-zinc-200 bg-white p-5">
+            <span class="inline-block text-[11px] font-semibold uppercase tracking-wide text-zinc-500 bg-zinc-100 border border-zinc-200 rounded-md px-2.5 py-1 mb-3">The problem</span>
+            <p class="text-base text-zinc-700 leading-relaxed">
+              The current builder supported complex business workflows, but <strong class="text-zinc-900">the interface was difficult to use</strong>.
+            </p>
+          </div>
+
+          <div class="flex md:flex-col items-center justify-center gap-1 text-zinc-300 rotate-90 md:rotate-0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <div class="rounded-xl border border-zinc-200 bg-white p-5">
+            <span class="inline-block text-[11px] font-semibold uppercase tracking-wide text-zinc-500 bg-zinc-100 border border-zinc-200 rounded-md px-2.5 py-1 mb-3">The goal</span>
+            <p class="text-base text-zinc-700 leading-relaxed">
+              <strong class="text-zinc-900">Preserve the builder&rsquo;s flexibility while making it approachable</strong> for <strong class="text-zinc-900">non-technical users</strong> such as operations managers and HR managers.
+            </p>
+          </div>
+        </div>
+
+        <!-- BEFORE / AFTER -->
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-4 items-center">
+          <figure>
+            <button type="button" data-lightbox-src="form-builder/old-system.png" data-lightbox-alt="The old form builder: a dense spreadsheet of configuration columns" class="block w-full rounded-xl overflow-hidden border border-zinc-200 shadow-[0_12px_30px_-16px_rgba(15,23,42,0.25)] cursor-zoom-in transition-transform hover:-translate-y-0.5 bg-white">
+              <span class="block text-[11px] font-semibold uppercase tracking-wide text-zinc-500 bg-zinc-100 border-b border-zinc-200 px-3 py-1.5">Before</span>
+              <img src="form-builder/old-system.png" alt="The old form builder: a dense spreadsheet of configuration columns" class="w-full h-auto block">
+            </button>
+            <figcaption class="mt-2 text-sm text-zinc-400 italic">Each field was a row with dozens of technical columns. No preview of the actual form.</figcaption>
+          </figure>
+
+          <div class="flex md:flex-col items-center justify-center gap-1 text-zinc-300 rotate-90 md:rotate-0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <figure>
+            <button type="button" data-lightbox-src="form-builder/result.png" data-lightbox-alt="The new visual form builder: a real form assembled by drag and drop" class="block w-full rounded-xl overflow-hidden border border-zinc-200 shadow-[0_12px_30px_-16px_rgba(15,23,42,0.25)] cursor-zoom-in transition-transform hover:-translate-y-0.5 bg-white">
+              <span class="block text-[11px] font-semibold uppercase tracking-wide text-zinc-500 bg-zinc-100 border-b border-zinc-200 px-3 py-1.5">After</span>
+              <img src="form-builder/result.png" alt="The new visual form builder: a real form assembled by drag and drop" class="w-full h-auto block">
+            </button>
+            <figcaption class="mt-2 text-sm text-zinc-400 italic">A live canvas that shows exactly what the form will look like as you build it.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE CHALLENGE -->
+    <section class="border-t border-zinc-200 bg-white py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col mx-auto text-center">
+          <p class="section-kicker">The Challenge</p>
+          <h2 class="text-2xl md:text-3xl font-semibold leading-snug">
+            How can we make a highly flexible form builder feel approachable?
+          </h2>
+          <p class="mt-6 text-base text-zinc-700 leading-relaxed">The design needs to balance competing goals:</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+          <div class="rounded-xl border border-zinc-200 bg-white shadow-sm p-5 text-center">
+            <div class="w-9 h-9 mx-auto rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center mb-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-700">
+                <path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/>
+              </svg>
+            </div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-zinc-500 mb-2">Simplicity</p>
+            <p class="text-sm text-zinc-700 leading-relaxed">Reduce the complexity exposed to users.</p>
+          </div>
+          <div class="rounded-xl border border-zinc-200 bg-white shadow-sm p-5 text-center">
+            <div class="w-9 h-9 mx-auto rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center mb-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-700">
+                <path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/>
+              </svg>
+            </div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-zinc-500 mb-2">Flexibility</p>
+            <p class="text-sm text-zinc-700 leading-relaxed">Supports diverse fields, structures and logic across many business use cases.</p>
+          </div>
+          <div class="rounded-xl border border-zinc-200 bg-white shadow-sm p-5 text-center">
+            <div class="w-9 h-9 mx-auto rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center mb-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-700">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+              </svg>
+            </div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-zinc-500 mb-2">Scalability</p>
+            <p class="text-sm text-zinc-700 leading-relaxed">Grow with the system without becoming overwhelming.</p>
+          </div>
+        </div>
+
+        <!-- FORM EXAMPLES CAROUSEL -->
+        <div class="mt-16">
+          <div class="prose-col mx-auto text-center">
+            <p class="text-base text-zinc-700 leading-relaxed">A few of the many forms it needs to support</p>
+          </div>
+
+          <div class="relative max-w-3xl mx-auto mt-2">
+            <button type="button" class="carousel-nav prev" id="carousel-prev" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button type="button" class="carousel-nav next" id="carousel-next" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+
+            <div class="carousel">
+              <div class="carousel-track" id="carousel-track">
+                <div class="carousel-card" data-index="0">
+                  <div class="frame">
+                    <button type="button" data-lightbox-src="form-builder/example-daily.png" data-lightbox-alt="Daily production report with shift tabs">
+                      <img src="form-builder/example-daily.png" alt="Daily production report with shift tabs">
+                    </button>
+                    <div class="carousel-nav-overlay"></div>
+                  </div>
+                  <p class="cap">Daily Report</p>
+                </div>
+                <div class="carousel-card" data-index="1">
+                  <div class="frame">
+                    <button type="button" data-lightbox-src="form-builder/example-orders.png" data-lightbox-alt="Order form">
+                      <img src="form-builder/example-orders.png" alt="Order form">
+                    </button>
+                    <div class="carousel-nav-overlay"></div>
+                  </div>
+                  <p class="cap">Order</p>
+                </div>
+                <div class="carousel-card" data-index="2">
+                  <div class="frame">
+                    <button type="button" data-lightbox-src="form-builder/example-task.png" data-lightbox-alt="Task form with subtasks and dependencies">
+                      <img src="form-builder/example-task.png" alt="Task form with subtasks and dependencies">
+                    </button>
+                    <div class="carousel-nav-overlay"></div>
+                  </div>
+                  <p class="cap">Task</p>
+                </div>
+                <div class="carousel-card" data-index="3">
+                  <div class="frame">
+                    <button type="button" data-lightbox-src="form-builder/example-employee.png" data-lightbox-alt="Employee record form">
+                      <img src="form-builder/example-employee.png" alt="Employee record form">
+                    </button>
+                    <div class="carousel-nav-overlay"></div>
+                  </div>
+                  <p class="cap">Employee</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-dots" id="carousel-dots"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNDERSTANDING THE PROBLEM -->
+    <section class="border-t border-zinc-200 bg-zinc-50 py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <p class="section-kicker">Understanding the problem</p>
+          <h2 class="text-2xl md:text-3xl font-semibold leading-snug">
+            Why nobody used the existing builder
+          </h2>
+          <p class="mt-4 text-zinc-600 leading-relaxed">
+            We worked closely with a <strong class="text-zinc-900">medium-sized manufacturing company</strong>, our alpha customer. Generic tools on the market couldn't handle their factory's rigid, format-specific workflows, so they <strong class="text-zinc-900">relied on Excel spreadsheets</strong> instead, which led to:
+          </p>
+          <ul class="mt-3 space-y-1.5 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>Duplicated information entry</li>
+            <li>Information scattered across multiple files</li>
+            <li>Manual processes that were difficult to maintain</li>
+            <li>Increased risk of mistakes</li>
+          </ul>
+          <p class="mt-4 text-zinc-600 leading-relaxed">
+            <strong class="text-zinc-900">The ERP aimed to replace these workflows with structured forms and centralized data</strong>, but that vision only worked if creating forms became <strong class="text-zinc-900">significantly easier</strong>. So <strong class="text-zinc-900">I observed and interviewed</strong> employees at the factory, mapped their workflows, and examined the existing builder firsthand to understand why it went unused.
+          </p>
+        </div>
+
+        <figure class="mt-6">
+          <button type="button" data-lightbox-src="form-builder/old-system.png" data-lightbox-alt="The existing builder, a 27-column table" class="block w-full rounded-xl overflow-hidden border border-zinc-200 shadow-[0_12px_30px_-16px_rgba(15,23,42,0.25)] cursor-zoom-in transition-transform hover:-translate-y-0.5">
+            <img src="form-builder/old-system.png" alt="The existing builder, a 27-column table" class="w-full h-auto block">
+          </button>
+          <figcaption class="mt-2 text-sm text-zinc-400 italic">
+            The existing builder - a 27-column table<br>
+            Even the product manager, who knew the system better than anyone, found it difficult to explain and navigate
+          </figcaption>
+        </figure>
+
+        <div class="mt-8">
+          <table class="w-full border-collapse table-auto sm:table-fixed">
+            <colgroup>
+              <col class="sm:w-[170px]">
+              <col class="hidden sm:table-column">
+              <col class="sm:w-[190px]">
+            </colgroup>
+            <tbody class="text-zinc-600">
+              <tr>
+                <td colspan="3" class="px-4 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-400 border-b border-zinc-200">Structure &amp; navigation</td>
+              </tr>
+              <tr class="border-b border-zinc-100">
+                <td class="px-4 py-3 font-medium text-zinc-900 align-top">
+                  <span class="hidden sm:inline">Overwhelming table</span>
+                  <span class="sm:hidden">Irrelevant columns</span>
+                </td>
+                <td class="hidden sm:table-cell px-4 py-3 align-top">Irrelevant columns for every field</td>
+                <td class="px-4 py-3 align-top">
+                  <span class="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-rose-700 bg-rose-50 rounded-full px-2.5 py-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                    Cognitive load
+                  </span>
+                </td>
+              </tr>
+              <tr class="border-b border-zinc-100">
+                <td class="px-4 py-3 font-medium text-zinc-900 align-top sm:font-normal sm:text-zinc-600">
+                  <span class="sm:hidden">Horizontal scroll</span>
+                </td>
+                <td class="hidden sm:table-cell px-4 py-3 align-top">Overflow caused constant horizontal scrolling</td>
+                <td class="px-4 py-3 align-top">
+                  <span class="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-rose-700 bg-rose-50 rounded-full px-2.5 py-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                    Slower navigation
+                  </span>
+                </td>
+              </tr>
+              <tr class="border-b border-zinc-100">
+                <td class="px-4 py-3 font-medium text-zinc-900 align-top">Tedious sub-section process</td>
+                <td class="hidden sm:table-cell px-4 py-3 align-top">Sub-sections had to be built as separate linked forms</td>
+                <td class="px-4 py-3 align-top">
+                  <span class="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-rose-700 bg-rose-50 rounded-full px-2.5 py-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><path d="M9.5 14.5l-2 2a3 3 0 1 1-4-4l3-3"/><path d="M14.5 9.5l2-2a3 3 0 1 0-4-4l-3 3"/><line x1="8" y1="16" x2="8.01" y2="16"/><line x1="12" y1="12" x2="12.01" y2="12"/></svg>
+                    Fragmented flow
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" class="px-4 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-400 border-b border-t border-zinc-200">Feedback &amp; language</td>
+              </tr>
+              <tr class="border-b border-zinc-100">
+                <td class="px-4 py-3 font-medium text-zinc-900 align-top">No visual feedback</td>
+                <td class="hidden sm:table-cell px-4 py-3 align-top">Meant working across 2 tabs - save, refresh, repeat</td>
+                <td class="px-4 py-3 align-top">
+                  <span class="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-rose-700 bg-rose-50 rounded-full px-2.5 py-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+                    Delayed feedback
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium text-zinc-900 align-top">Technical terms</td>
+                <td class="hidden sm:table-cell px-4 py-3 align-top">Terms like "foreign key" made the system hard to understand</td>
+                <td class="px-4 py-3 align-top">
+                  <span class="inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold uppercase tracking-wide text-rose-700 bg-rose-50 rounded-full px-2.5 py-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.9.8c0 1.7-2.4 1.8-2.4 3.2"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Hard to learn
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENCHMARKING -->
+    <section class="border-t border-zinc-200 bg-white py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <p class="section-kicker">Benchmarking</p>
+          <h2 class="text-2xl md:text-3xl font-semibold leading-snug">Patterns Worth Keeping From Other Form Builders</h2>
+          <p class="mt-4 text-zinc-600 leading-relaxed">The problems in the current builder were significant enough to rethink the experience from the ground up. I looked at how mature tools already solve this, then watched real users try them.</p>
+        </div>
+
+        <div class="prose-col mt-6">
+          <div class="rounded-xl border border-zinc-200 p-5 max-w-md">
+            <div class="flex items-center gap-2 font-semibold text-zinc-900">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-blue-600"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              3 users observed
+            </div>
+            <p class="mt-2 text-xs text-zinc-500 leading-snug">Each completed the same task (build an employee review form) while thinking aloud</p>
+            <ul class="mt-4 space-y-2.5 text-sm text-zinc-600">
+              <li class="flex items-center gap-2"><img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Aiden" alt="" class="w-6 h-6 shrink-0"><strong class="text-zinc-900">Operations Manager</strong></li>
+              <li class="flex items-center gap-2"><img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Riley" alt="" class="w-6 h-6 shrink-0"><strong class="text-zinc-900">Finance Manager</strong></li>
+              <li class="flex items-center gap-2"><img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Sam" alt="" class="w-6 h-6 shrink-0"><strong class="text-zinc-900">Administrator</strong></li>
+            </ul>
+            <p class="mt-4 text-xs text-zinc-500 leading-snug">Watched for: where they hesitated, which actions felt obvious, how they expected form creation to work.</p>
+          </div>
+        </div>
+
+        <div class="prose-col mt-6 text-sm text-zinc-500 leading-relaxed">
+          <strong class="text-zinc-900">4 tools benchmarked</strong>, see how each compares below.
+        </div>
+
+        <div class="prose-col mt-2 flex items-center gap-2 text-sm text-zinc-500 leading-relaxed">
+          <span class="inline-flex items-center justify-center w-[17px] h-[17px] rounded-full bg-green-600 text-white text-[11px] font-bold shrink-0">✓</span>
+          Marks the approach carried into the new design.
+        </div>
+
+        <div class="mt-6 overflow-x-auto rounded-xl border border-zinc-200 bg-white">
+          <table class="min-w-[820px] w-full text-sm border-collapse">
+            <thead>
+              <tr>
+                <th class="border-b border-r border-zinc-200 bg-zinc-50 w-[170px]"></th>
+                <th class="text-center font-bold text-zinc-900 px-3 py-3.5 border-b border-r border-zinc-200" style="border-top:4px solid #7248B9;background-color:#f2effa;">
+                  <span class="inline-flex items-center gap-2 text-[15px]"><img src="form-builder/table/google.png" alt="" class="h-[22px] w-auto">Google Forms</span>
+                  <span class="block font-normal text-[11px] text-zinc-400 mt-0.5">common, simple</span>
+                </th>
+                <th class="text-center font-bold text-zinc-900 px-3 py-3.5 border-b border-r border-zinc-200" style="border-top:4px solid #0A99FF;background-color:#e9f5ff;">
+                  <span class="inline-flex items-center gap-2 text-[15px]"><img src="form-builder/table/jotforms.png" alt="" class="h-[22px] w-auto">JotForm</span>
+                  <span class="block font-normal text-[11px] text-zinc-400 mt-0.5">more advanced</span>
+                </th>
+                <th class="text-center font-bold text-zinc-900 px-3 py-3.5 border-b border-r border-zinc-200" style="border-top:4px solid #1FA37A;background-color:#eafaf3;">
+                  <span class="inline-flex items-center gap-2 text-[15px]"><img src="form-builder/table/zoho.png" alt="" class="h-[22px] w-auto">Zoho Forms</span>
+                  <span class="block font-normal text-[11px] text-zinc-400 mt-0.5">direct competitor</span>
+                </th>
+                <th class="text-center font-bold text-zinc-900 px-3 py-3.5 border-b border-zinc-200" style="border-top:4px solid #FF7A59;background-color:#fff1ec;">
+                  <span class="inline-flex items-center gap-2 text-[15px]"><img src="form-builder/table/hubspot.svg" alt="" class="h-[22px] w-auto">HubSpot</span>
+                  <span class="block font-normal text-[11px] text-zinc-400 mt-0.5">most similar structure</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="text-zinc-600 align-top">
+
+              <tr class="border-b border-zinc-200">
+                <td class="px-3.5 py-3.5 bg-zinc-50/60 border-r border-zinc-200 align-top">
+                  <div class="flex items-start gap-2.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-900 shrink-0 mt-0.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    <div class="font-bold text-zinc-900 leading-snug">Adding fields</div>
+                  </div>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Click "+"</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">pick a type from a list</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Drag &amp; drop</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">from the left panel</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Drag &amp; drop</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">from the left panel</span></td>
+                <td class="relative px-3.5 py-3.5"><strong class="text-zinc-900">Drag &amp; drop</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">from the left panel</span></td>
+              </tr>
+
+              <tr class="border-b border-zinc-200">
+                <td class="px-3.5 py-3.5 bg-zinc-50/60 border-r border-zinc-200 align-top">
+                  <div class="flex items-start gap-2.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-900 shrink-0 mt-0.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+                    <div class="font-bold text-zinc-900 leading-snug">Fields panel</div>
+                  </div>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">None</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">floating add menu, dropdown list</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200 bg-green-50">
+                  <span class="absolute top-2 right-2 inline-flex items-center justify-center w-[17px] h-[17px] rounded-full bg-green-600 text-white text-[11px] font-bold">✓</span>
+                  <strong class="text-green-800">Side panel</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">fields + widgets</span>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Side panel</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">basic + advanced tabs, no inner categories</span></td>
+                <td class="relative px-3.5 py-3.5"><strong class="text-zinc-900">Side panel</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">fields + create-new-fields</span></td>
+              </tr>
+
+              <tr class="border-b border-zinc-200">
+                <td class="px-3.5 py-3.5 bg-zinc-50/60 border-r border-zinc-200 align-top">
+                  <div class="flex items-start gap-2.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-900 shrink-0 mt-0.5"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+                    <div class="font-bold text-zinc-900 leading-snug">Canvas ease of use<span class="block font-normal text-xs text-zinc-400 mt-1">How easy it is to arrange fields</span></div>
+                  </div>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Scroll-friction</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">scrolling interrupts dragging, single column only</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Smooth</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">no insertion guides, single column only</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Smooth</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">insertion guides, layout-based columns only</span></td>
+                <td class="relative px-3.5 py-3.5 bg-green-50">
+                  <span class="absolute top-2 right-2 inline-flex items-center justify-center w-[17px] h-[17px] rounded-full bg-green-600 text-white text-[11px] font-bold">✓</span>
+                  <strong class="text-green-800">Smooth &amp; dynamic</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">dynamic multi-column drag-and-drop with insertion guides</span>
+                </td>
+              </tr>
+
+              <tr class="border-b border-zinc-200">
+                <td class="px-3.5 py-3.5 bg-zinc-50/60 border-r border-zinc-200 align-top">
+                  <div class="flex items-start gap-2.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-900 shrink-0 mt-0.5"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                    <div class="font-bold text-zinc-900 leading-snug">Field settings</div>
+                  </div>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Basic, on focus</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">on the field card itself</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Side panel</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">double-click (or click settings) to open</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Side panel, overlay</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">overlay hides the form (click to exit)</span></td>
+                <td class="relative px-3.5 py-3.5 bg-green-50">
+                  <span class="absolute top-2 right-2 inline-flex items-center justify-center w-[17px] h-[17px] rounded-full bg-green-600 text-white text-[11px] font-bold">✓</span>
+                  <strong class="text-green-800">Side panel</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">hides the fields panel, click settings to open</span>
+                </td>
+              </tr>
+
+              <tr class="border-b border-zinc-200">
+                <td class="px-3.5 py-3.5 bg-zinc-50/60 border-r border-zinc-200 align-top">
+                  <div class="flex items-start gap-2.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-900 shrink-0 mt-0.5"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <div class="font-bold text-zinc-900 leading-snug">Builder vs form similarity<span class="block font-normal text-xs text-zinc-400 mt-1">How closely it matches the final form</span></div>
+                  </div>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Partial</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">scales/grids setup isn't intuitive</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200 bg-green-50">
+                  <span class="absolute top-2 right-2 inline-flex items-center justify-center w-[17px] h-[17px] rounded-full bg-green-600 text-white text-[11px] font-bold">✓</span>
+                  <strong class="text-green-800">WYSIWYG</strong>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">WYSIWYG</strong></td>
+                <td class="relative px-3.5 py-3.5"><strong class="text-zinc-900">WYSIWYG</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">but no complex fields to check</span></td>
+              </tr>
+
+              <tr class="border-b border-zinc-200">
+                <td class="px-3.5 py-3.5 bg-zinc-50/60 border-r border-zinc-200 align-top">
+                  <div class="flex items-start gap-2.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-900 shrink-0 mt-0.5"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/></svg>
+                    <div class="font-bold text-zinc-900 leading-snug">Structure options<span class="block font-normal text-xs text-zinc-400 mt-1">Columns, tabs, accordion…</span></div>
+                  </div>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Single-column</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">sections, page breaks</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Single-column</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">page breaks, collapsible sections</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Single-column</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">sections, page breaks</span></td>
+                <td class="relative px-3.5 py-3.5 bg-green-50">
+                  <span class="absolute top-2 right-2 inline-flex items-center justify-center w-[17px] h-[17px] rounded-full bg-green-600 text-white text-[11px] font-bold">✓</span>
+                  <strong class="text-green-800">Dynamic columns</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">dynamic multi-columns</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="px-3.5 py-3.5 bg-zinc-50/60 border-r border-zinc-200 align-top">
+                  <div class="flex items-start gap-2.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-zinc-900 shrink-0 mt-0.5"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+                    <div class="font-bold text-zinc-900 leading-snug">Conditional logic</div>
+                  </div>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Basic</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">page logic</span></td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200 bg-green-50">
+                  <span class="absolute top-2 right-2 inline-flex items-center justify-center w-[17px] h-[17px] rounded-full bg-green-600 text-white text-[11px] font-bold">✓</span>
+                  <strong class="text-green-800">Advanced</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">field, page, calculations logic</span>
+                </td>
+                <td class="relative px-3.5 py-3.5 border-r border-zinc-200"><strong class="text-zinc-900">Moderate</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">field, form, page logic</span></td>
+                <td class="relative px-3.5 py-3.5"><strong class="text-zinc-900">Moderate-advanced</strong><span class="block text-xs text-zinc-400 mt-1 leading-snug">advanced field logic</span></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <div class="prose-col">
+          <p class="mt-2 text-sm text-zinc-400 italic">A feature comparison across the dimensions that mattered most for the redesign</p>
+        </div>
+
+        <div class="prose-col mt-10">
+          <h3 class="text-xl font-semibold mb-1">Key findings</h3>
+          <p class="text-sm text-zinc-500">Patterns pulled from the table and the observation sessions above.</p>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 gap-5">
+          <div class="rounded-xl border border-green-200 bg-green-50/40 p-5">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xl leading-none">👍</span>
+              <h4 class="font-semibold text-zinc-900">What worked</h4>
+            </div>
+            <ul class="space-y-3 text-sm text-zinc-700 leading-relaxed list-disc list-outside pl-5">
+              <li>
+                <strong class="text-zinc-900">Clean, minimal layouts reduced friction</strong>
+                <div class="mt-2 flex items-center gap-2">
+                  <span class="shrink-0 w-7 h-7 flex items-center justify-center text-zinc-400">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px]"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </span>
+                  <em class="text-zinc-600 italic text-[13px] leading-snug">Users felt comfortable and moved faster when the workspace stayed uncluttered</em>
+                </div>
+              </li>
+              <li>
+                <strong class="text-zinc-900">Clear visual fields</strong>
+                <div class="mt-2 flex items-center gap-2">
+                  <span class="shrink-0 w-7 h-7 flex items-center justify-center text-zinc-400">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px]"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </span>
+                  <em class="text-zinc-600 italic text-[13px] leading-snug">A visual example reduced hesitation and trial & error, users edited freely</em>
+                </div>
+              </li>
+              <li>
+                <strong class="text-zinc-900">Placement indicators for drag-and-drop</strong>
+                <div class="mt-2 flex items-center gap-2">
+                  <span class="shrink-0 w-7 h-7 flex items-center justify-center text-zinc-400">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px]"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </span>
+                  <em class="text-zinc-600 italic text-[13px] leading-snug">Users could rearrange the form easily without much thought</em>
+                </div>
+              </li>
+              <li><strong class="text-zinc-900">Dynamic multi-column drag-and-drop</strong> was the closest reference for the layout flexibility needed</li>
+            </ul>
+          </div>
+
+          <div class="rounded-xl border border-red-200 bg-red-50/40 p-5">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xl leading-none">👎</span>
+              <h4 class="font-semibold text-zinc-900">What didn't work</h4>
+            </div>
+            <ul class="space-y-4 text-sm text-zinc-700 leading-relaxed list-disc list-outside pl-5">
+              <li>
+                <strong class="text-zinc-900">Cognitive overload:</strong> too many competing elements left users lost.
+                <div class="mt-2 flex items-center gap-2">
+                  <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Sam" alt="" class="shrink-0 w-7 h-7">
+                  <em class="text-zinc-600 italic text-[13px] leading-snug">"Everything looks the same in a sea of gray, and the workspace feels huge" (HubSpot's canvas)</em>
+                </div>
+              </li>
+              <li>
+                <strong class="text-zinc-900">Hidden configuration</strong>
+                <div class="mt-2 flex items-center gap-2">
+                  <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Aiden" alt="" class="shrink-0 w-7 h-7">
+                  <em class="text-zinc-600 italic text-[13px] leading-snug">"I wish there was a demonstration of what this does" (Google Forms' multiple-choice grid editor didn't preview the field)</em>
+                </div>
+              </li>
+              <li>
+                <strong class="text-zinc-900">Empty states lacking affordance</strong>
+                <div class="mt-2 flex items-center gap-2">
+                  <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Riley" alt="" class="shrink-0 w-7 h-7">
+                  <em class="text-zinc-600 italic text-[13px] leading-snug">"Am I supposed to drag from here? Where do I start?" (canvas didn't signal fields were draggable)</em>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGN -->
+    <section class="border-t border-zinc-200 bg-zinc-50 py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <p class="section-kicker">Design</p>
+          <h2 class="text-2xl md:text-3xl font-semibold leading-snug">
+            Reducing configuration, increasing visibility (?)
+          </h2>
+          <div class="mt-3 rounded-lg border border-dashed border-amber-200 bg-amber-50 px-4 py-3 text-sm italic text-amber-800">
+            <span class="block not-italic text-[11px] font-semibold uppercase tracking-wide text-amber-700 mb-1">Draft note</span>
+            Maybe add in each decision a checkmark bullet that emphasizes the value for the user.
+          </div>
+
+          <h3 class="text-xl font-semibold mt-10 mb-3">Build on a live canvas</h3>
+          <ul class="mt-3 space-y-2 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>The form itself became the main workspace, replacing the old table-based configuration view. Users could see the form as it would appear while they edited it.</li>
+            <li>This removed the save-refresh-repeat workflow and reduced the need to switch between tabs.</li>
+            <li>Clear empty state asks to drag the first element.</li>
+          </ul>
+        </div>
+        <figure class="mt-6">
+          <button type="button" data-lightbox-src="form-builder/empty-state.png" data-lightbox-alt="Empty canvas prompting the user to drag the first element from the side menu" class="block w-full rounded-xl overflow-hidden border border-zinc-200 shadow-[0_12px_30px_-16px_rgba(15,23,42,0.25)] cursor-zoom-in transition-transform hover:-translate-y-0.5">
+            <img src="form-builder/empty-state.png" alt="Empty canvas prompting the user to drag the first element from the side menu" class="w-full h-auto block">
+          </button>
+        </figure>
+
+        <div class="prose-col mt-10">
+          <h3 class="text-xl font-semibold mb-3">Progressive disclosure: Settings only when you need them</h3>
+          <ul class="mt-3 space-y-2 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>The old tool showed every option at once.</li>
+            <li>Each field now opens its own panel on selection, and contains only the necessary settings for that field type.</li>
+          </ul>
+          <p class="mt-4 font-semibold text-zinc-900">Trade-off:</p>
+          <ul class="mt-3 space-y-2 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>Early concepts used a left panel for fields and a right panel for settings.</li>
+            <li>That created too much visual noise and made the workspace feel crowded.</li>
+            <li>The final compromise used one right-side panel. When field settings open, the fields menu hides.</li>
+          </ul>
+        </div>
+        <figure class="mt-6">
+          <button type="button" data-lightbox-src="form-builder/field-settings.png" data-lightbox-alt="Contextual settings panel open for a single selected field" class="block w-full rounded-xl overflow-hidden border border-zinc-200 shadow-[0_12px_30px_-16px_rgba(15,23,42,0.25)] cursor-zoom-in transition-transform hover:-translate-y-0.5">
+            <img src="form-builder/field-settings.png" alt="Contextual settings panel open for a single selected field" class="w-full h-auto block">
+          </button>
+        </figure>
+
+        <div class="prose-col mt-10">
+          <h3 class="text-xl font-semibold mb-3">Start from the real data (Schema-based fields)</h3>
+          <ul class="mt-3 space-y-2 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>Fields aren't invented from scratch. They come from the system's existing data model (text, number, date, lists, references)</li>
+            <li>
+              Fields were organized as a tree of the existing model schema
+              <ul class="mt-3 space-y-2 list-disc list-outside pl-5">
+                <li>For example, when creating an employee form, the user selected the employee schema and then searched or browsed the available employee fields.</li>
+              </ul>
+            </li>
+            <li>This kept the builder connected to the system's data structure</li>
+          </ul>
+        </div>
+        <figure class="mt-6">
+          <button type="button" data-lightbox-src="form-builder/drilldown-contact-details.png" data-lightbox-alt="Drilling down into nested data: Employee to Contact Details" class="block w-full rounded-xl overflow-hidden border border-zinc-200 shadow-[0_12px_30px_-16px_rgba(15,23,42,0.25)] cursor-zoom-in transition-transform hover:-translate-y-0.5">
+            <img src="form-builder/drilldown-contact-details.png" alt="Drilling down into nested data: Employee to Contact Details" class="w-full h-auto block">
+          </button>
+        </figure>
+
+        <div class="prose-col mt-10">
+          <h3 class="text-xl font-semibold mb-3">Flexible drag-and-drop layouts</h3>
+          <ul class="mt-3 space-y-2 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>Users could drag fields into different rows, reorder fields within a row, and place fields between rows.</li>
+            <li>Dividers, tabs, accordions, and tables are elements too, dragged in like any field.</li>
+            <li>What used to require a separate sub-form and manual linking now happens in one motion, on one screen.</li>
+          </ul>
+        </div>
+        <figure class="mt-6">
+          <button type="button" data-lightbox-src="form-builder/layout.png" data-lightbox-alt="Layout panel: headings, dividers, conditional sections, tabs, collapsible sections, image, and white space" class="block w-full rounded-xl overflow-hidden border border-zinc-200 shadow-[0_12px_30px_-16px_rgba(15,23,42,0.25)] cursor-zoom-in transition-transform hover:-translate-y-0.5">
+            <img src="form-builder/layout.png" alt="Layout panel: headings, dividers, conditional sections, tabs, collapsible sections, image, and white space" class="w-full h-auto block">
+          </button>
+        </figure>
+
+        <div class="prose-col mt-10">
+          <h3 class="text-xl font-semibold mb-3"><em>Trade-offs I had to balance</em></h3>
+          <div class="mt-4 rounded-xl border border-zinc-200 overflow-hidden bg-white">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="bg-zinc-50">
+                  <th class="text-left font-semibold text-zinc-900 px-4 py-3 border-b border-zinc-200"><em>Decision</em></th>
+                  <th class="text-left font-semibold text-zinc-900 px-4 py-3 border-b border-zinc-200"><em>Trade-off</em></th>
+                </tr>
+              </thead>
+              <tbody class="text-zinc-600">
+                <tr class="border-b border-zinc-100"><td class="px-4 py-3 font-medium text-zinc-900 bg-zinc-50/50"><em>Visual editing canvas</em></td><td class="px-4 py-3"><em>Used more screen space than a compact table.</em></td></tr>
+                <tr class="border-b border-zinc-100"><td class="px-4 py-3 font-medium text-zinc-900 bg-zinc-50/50"><em>Flexible drag-and-drop layouts</em></td><td class="px-4 py-3"><em>Increased implementation effort for the frontend team.</em></td></tr>
+                <tr class="border-b border-zinc-100"><td class="px-4 py-3 font-medium text-zinc-900 bg-zinc-50/50"><em>Schema-based field tree</em></td><td class="px-4 py-3"><em>Maintained consistency with the ERP data model while still needing to feel simple.</em></td></tr>
+                <tr><td class="px-4 py-3 font-medium text-zinc-900 bg-zinc-50/50"><em>Progressive disclosure</em></td><td class="px-4 py-3"><em>Reduced clutter, but required careful decisions about which options to show first.</em></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALIDATION -->
+    <section class="border-t border-zinc-200 bg-white py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <p class="section-kicker">Validation</p>
+          <span class="inline-block rounded-lg border border-dashed border-amber-200 bg-amber-50 px-4 py-2 text-xl md:text-2xl font-semibold text-amber-700">&lt;missing title&gt;</span>
+
+          <div class="mt-3 rounded-lg border border-dashed border-amber-200 bg-amber-50 px-4 py-3 text-sm italic text-amber-800">
+            <span class="block not-italic text-[11px] font-semibold uppercase tracking-wide text-amber-700 mb-1">Draft note</span>
+            <em>The validation process had 2 stages:</em>
+            <ul class="mt-2 space-y-1 list-disc list-outside pl-5">
+              <li><em>Before the implementation: making sure the planning can produce real forms.</em></li>
+              <li><em>During the implementation: testing and adjusting. &lt;need real examples&gt;</em></li>
+            </ul>
+          </div>
+
+          <ul class="mt-5 space-y-3 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>
+              To validate the redesigned builder, we recreated several forms the manufacturing company already used in their workflows, such as a daily production form and employee records
+              <ul class="mt-3 space-y-2 list-disc list-outside pl-5">
+                <li>The manufacturing company used the daily production form in their everyday workflow, which let us test the builder in a real operational context with real data</li>
+                <li>
+                  <div class="mt-3 rounded-lg border border-dashed border-amber-200 bg-amber-50 px-4 py-3 text-sm italic text-amber-800">
+                    <span class="block not-italic text-[11px] font-semibold uppercase tracking-wide text-amber-700 mb-1">Draft note</span>
+                    <em>&lt;what did we learn from it&gt;</em>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li>We also built other forms that we ourselves used in our team, such as a task and a sprint, to make sure the system scales to more use cases</li>
+            <li>Advanced options were also validated, including conditional logic and auto-calculated fields</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEV HANDOFF -->
+    <section class="border-t border-zinc-200 bg-zinc-50 py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <p class="section-kicker">Dev handoff &amp; Implementation</p>
+          <span class="inline-block rounded-lg border border-dashed border-amber-200 bg-amber-50 px-4 py-2 text-xl md:text-2xl font-semibold text-amber-700">&lt;missing title&gt;</span>
+          <p class="mt-5 text-zinc-600 leading-relaxed">
+            <strong class="text-zinc-900">Challenges:</strong> The drag-and-drop interaction was the most complex part of the implementation. It required significant frontend work and was not an easy task for the development team. I had to <strong class="text-zinc-900">push for implementing the drag-and-drop interface</strong>, advocating for a better UX despite initial resistance.
+          </p>
+          <p class="mt-4 text-zinc-600 leading-relaxed">
+            <strong class="text-zinc-900">Solution:</strong> I broke down complex UI tasks into smaller, manageable development sprints. Each sprint, I prioritized the most critical improvement while progressively introducing more advanced front-end features.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section class="border-t border-zinc-200 bg-white py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <h2 class="text-2xl md:text-3xl font-semibold leading-snug">Outcomes</h2>
+          <ul class="mt-5 space-y-2 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>The interface moved from a table-based configuration tool to a visual builder with drag-and-drop editing and contextual settings</li>
+            <li>The manufacturing company was able to use the daily production input form in their regular workflow</li>
+            <li>We used the builder ourselves inside the team to create our own workflows such as tasks and sprints</li>
+            <li>The creation process became easy and required minimal training</li>
+            <li>Consistency across the ERP: the form builder was built on top of the shared design system, ensuring forms across modules looked and behaved consistently.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="border-t border-zinc-200 bg-zinc-50 py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <h2 class="text-2xl md:text-3xl font-semibold leading-snug">Reflection</h2>
+          <ul class="mt-5 space-y-2 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li>This project taught me that designing a form builder that would serve many different workflows requires deep understanding of the system, mapping all the field types, settings, behaviors, logic rules, and use cases.</li>
+            <li>The biggest lesson was balancing flexibility with simplicity. The builder needed to support uncommon business cases, but the interface could not expose every technical detail at once.</li>
+            <li>That balance shaped the final design: a visual workspace for common tasks, contextual settings for deeper configuration, and progressive disclosure for advanced options.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT STEPS -->
+    <section class="border-t border-zinc-200 bg-white py-16">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="prose-col">
+          <h2 class="text-2xl md:text-3xl font-semibold leading-snug"><em>Next Steps</em></h2>
+          <p class="mt-4 font-semibold text-zinc-900"><em>How I'd improve the form builder further</em></p>
+          <ul class="mt-5 space-y-2 text-zinc-600 leading-relaxed list-disc list-outside pl-5">
+            <li><em>Building a template library for frequently used forms</em></li>
+            <li><em>Expanding accessibility support and RTL behavior</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      var track = document.getElementById('carousel-track');
+      if (!track) return;
+
+      var cards = Array.from(track.querySelectorAll('.carousel-card'));
+      var dotsWrap = document.getElementById('carousel-dots');
+      var total = cards.length;
+      var current = 0;
+
+      cards.forEach(function (_, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', function () { goTo(i); });
+        dotsWrap.appendChild(dot);
+      });
+      var dots = Array.from(dotsWrap.children);
+
+      function offsetFor(delta) {
+        return delta * (window.innerWidth < 640 ? 140 : 250);
+      }
+
+      function render() {
+        var isMobile = window.innerWidth < 640;
+        cards.forEach(function (card, i) {
+          var delta = i - current;
+          if (delta > total / 2) delta -= total;
+          if (delta < -total / 2) delta += total;
+
+          var absDelta = Math.abs(delta);
+          var scale = absDelta === 0 ? 1 : (absDelta === 1 ? (isMobile ? 0.5 : 0.62) : 0.5);
+          var opacity = absDelta === 0 ? 1 : (absDelta === 1 ? (isMobile ? 0.3 : 0.55) : 0);
+
+          card.style.transform = 'translateX(-50%) translateX(' + offsetFor(delta) + 'px) scale(' + scale + ')';
+          card.style.opacity = opacity;
+          card.style.zIndex = 10 - absDelta;
+          card.style.pointerEvents = absDelta <= 1 ? 'auto' : 'none';
+
+          var overlay = card.querySelector('.carousel-nav-overlay');
+          overlay.style.pointerEvents = absDelta === 0 ? 'none' : 'auto';
+        });
+        dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
+      }
+
+      function goTo(i) {
+        current = ((i % total) + total) % total;
+        render();
+      }
+
+      cards.forEach(function (card, i) {
+        card.querySelector('.carousel-nav-overlay').addEventListener('click', function () {
+          goTo(i);
+        });
+      });
+
+      document.getElementById('carousel-prev').addEventListener('click', function () { goTo(current - 1); });
+      document.getElementById('carousel-next').addEventListener('click', function () { goTo(current + 1); });
+      window.addEventListener('resize', render);
+
+      render();
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightbox-img');
+      var closeBtn = document.getElementById('lightbox-close');
+
+      function openLightbox(src, alt) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || '';
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        lightboxImg.src = '';
+      }
+
+      document.querySelectorAll('[data-lightbox-src]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openLightbox(btn.getAttribute('data-lightbox-src'), btn.getAttribute('data-lightbox-alt'));
+        });
+      });
+
+      lightbox.addEventListener('click', closeLightbox);
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        closeLightbox();
+      });
+      lightboxImg.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLightbox();
+      });
+    })();
+  </script>
+
+</body>
+</html>
